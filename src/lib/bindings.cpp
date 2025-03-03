@@ -17,6 +17,7 @@
 #include "plaintext_docs.h"
 #include "ciphertext_docs.h"
 #include "serialization.h"
+#include "cryptocontext.h"
 
 using namespace lbcrypto;
 namespace py = pybind11;
@@ -202,6 +203,33 @@ void bind_crypto_context(py::module &m)
             cc_KeySwitchGen_docs,
             py::arg("oldPrivateKey"),
             py::arg("newPrivateKey"))
+        // .def("EvalMultMatrix", static_cast<std::vector<std::vector<Ciphertext<DCRTPoly>> (CryptoContextImpl<DCRTPoly>::*)
+        //     (const std::vector<std::vector<ConstCiphertext<DCRTPoly>>>&, const std::vector<std::vector<ConstCiphertext<DCRTPoly>>>&)>
+        //     (&CryptoContextImpl<DCRTPoly>::EvalMultMatrix),
+        //     cc_EvalMultMatrix_docs,
+        //     py::arg("matrix1"),
+        //     py::arg("matrix2"))
+        .def("EvalMultMatrix",
+            [](CryptoContextImpl<DCRTPoly>& self,
+               const std::vector<std::vector<ConstCiphertext<DCRTPoly>>>& matrix1,
+               const std::vector<std::vector<ConstCiphertext<DCRTPoly>>>& matrix2) {
+                return self.EvalMultMatrix(matrix1, matrix2);
+            },
+            py::arg("matrix1"), py::arg("matrix2"),
+            cc_EvalMultMatrix_docs) 
+        .def("EvalMultMatrixWithBootstrapping",
+            [](CryptoContextImpl<DCRTPoly>& self,
+                const std::vector<std::vector<ConstCiphertext<DCRTPoly>>>& matrix1,
+                const std::vector<std::vector<ConstCiphertext<DCRTPoly>>>& matrix2) {
+                return self.EvalMultMatrixWithBootstrapping(matrix1, matrix2);
+            },
+            py::arg("matrix1"), py::arg("matrix2"),
+            cc_EvalMultMatrixWithBootstrapping_docs)         
+        .def("EvalExample", static_cast<Ciphertext<DCRTPoly> (CryptoContextImpl<DCRTPoly>::*)(ConstCiphertext<DCRTPoly>, ConstCiphertext<DCRTPoly>) const>
+            (&CryptoContextImpl<DCRTPoly>::EvalExample), 
+            cc_EvalAdd_docs,
+            py::arg("ciphertext1"),
+            py::arg("ciphertext2"))
         .def("EvalAdd", static_cast<Ciphertext<DCRTPoly> (CryptoContextImpl<DCRTPoly>::*)(ConstCiphertext<DCRTPoly>, ConstCiphertext<DCRTPoly>) const>
             (&CryptoContextImpl<DCRTPoly>::EvalAdd), 
             cc_EvalAdd_docs,

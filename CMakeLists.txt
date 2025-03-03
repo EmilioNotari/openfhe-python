@@ -36,6 +36,8 @@ include_directories( ${OpenFHE_Py_INCLUDES}/binfhe )
 include_directories( ${OpenFHE_Py_INCLUDES}/docstrings )
 include_directories( ${OpenFHE_Py_INCLUDES} )
 ### add directories for other OpenFHE modules as needed for your project
+include_directories(/usr/local/include/openfhe)     #####   AÑADIDO POR MI
+link_directories(/usr/local/lib)                    #####   AÑADIDO POR MI
 
 link_directories( ${OpenFHE_LIBDIR} )
 link_directories( ${OPENMP_LIBRARIES} )

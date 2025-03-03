@@ -350,6 +350,26 @@ Homomorphic addition of two ciphertexts
 :rtype: Ciphertext
 )pbdoc";
 
+const char* cc_EvalMultMatrix_docs = R"pbdoc(
+Homomorphic multiplication of two matrices without using bootstraping
+:param ciphermatrix1: input ciphermatrix1
+:type std::vector<std::vector>
+:param ciphermatrix2: input ciphermatrix2
+:type std::vector<std::vector>
+:return: new cipher matrix
+:rtype vector
+)pbdoc";
+
+const char* cc_EvalMultMatrixWithBootstrapping_docs = R"pbdoc(
+    Homomorphic multiplication of two matrices using bootstrapping
+    :param ciphermatrix1: input ciphermatrix1
+    :type std::vector<std::vector>
+    :param ciphermatrix2: input ciphermatrix2
+    :type std::vector<std::vector>
+    :return: new cipher matrix
+    :rtype vector
+    )pbdoc";
+
 const char* cc_EvalAddfloat_docs = R"pbdoc(
 EvalAdd - OpenFHE EvalAdd method for a ciphertext and a real number. Supported only in CKKS.
 
